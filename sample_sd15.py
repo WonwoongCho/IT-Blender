@@ -15,7 +15,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="IT-Blender with FLUX")
 
-parser.add_argument("--scale", type=float, default=0.25, help="scale for Blended Attention")
+parser.add_argument("--scale", type=float, default=0.7, help="scale for Blended Attention")
 parser.add_argument("--num_samples_per_ref", type=int, default=4, help="Number of samples to generate per a reference image")
 parser.add_argument("--seed", type=int, default=42, help="random seed")
 parser.add_argument("--obj", type=str, default="", help="an object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag")
@@ -40,7 +40,7 @@ else:
 
 prompt = f"best quality, high quality, a photo of a {obj}, 4k, detailed"
 
-start_end_layers = [0, 16]
+start_end_layers = [10, 16]
 set_seed(seed)
 
 root_path = f"models/sd15"

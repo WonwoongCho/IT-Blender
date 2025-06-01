@@ -21,8 +21,9 @@ parser.add_argument("--num_ref", type=int, default=1, help="Number of reference 
 parser.add_argument("--num_samples_per_ref", type=int, default=3, help="Number of samples to generate per a reference image")
 parser.add_argument("--seed", type=int, default=42, help="random seed")
 parser.add_argument("--obj", type=str, default="", help="an object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag")
-parser.add_argument("--temperature", type=float, default=1.2, help='''Temperature before softmax. Only used if num_ref > 1.
-        Set greater than 1.0 if the result does not clearly apply multiple reference images.
+parser.add_argument("--temperature", type=float, default=1.0, help='''Temperature before softmax. Only used if num_ref > 1.
+        Set greater than 1.0 (low temp) if the result does not clearly apply multiple reference images.
+        This sharpens the softmax distribution, possibly helping to prevent ambiguous mixtures of visual concepts.
         Setting greater than 1.5 can negatively affect the generation quality. 
         See appendices of our paper for further details.''')
 
