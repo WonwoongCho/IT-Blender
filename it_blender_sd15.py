@@ -12,6 +12,9 @@ import torch
 import os
 from torchvision import transforms
 
+import shutil
+from huggingface_hub import hf_hub_download
+
 def get_generator(seed, device):
 
     if seed is not None:
@@ -77,14 +80,17 @@ class ITBlender:
         unet.set_attn_processor(attn_procs)
 
     def load_it_blender(self):
-        if os.path.splitext(self.ba_ckpt)[-1] == ".safetensors":
-            state_dict = {"it_blender": {}}
-            with safe_open(self.ba_ckpt, framework="pt", device="cpu") as f:
-                for key in f.keys():
-                    if key.startswith("it_blender."):
-                        state_dict["it_blender"][key.replace("it_blender.", "")] = f.get_tensor(key)
-        else:
+        try:
             state_dict = torch.load(self.ba_ckpt, map_location="cpu")
+        except:
+            model_file = hf_hub_download(
+                repo_id="Wonwoong/IT-Blender",
+                filename="sd15/it-blender.bin" # adjust the filename as needed
+            )
+            os.makedirs("/".join(self.ba_ckpt.split("/")[:-1]), exist_ok=True)
+            shutil.copy(model_file, self.ba_ckpt)
+            state_dict = torch.load(self.ba_ckpt, map_location="cpu")
+            
         ba_layers = torch.nn.ModuleList(self.pipe.unet.attn_processors.values())
         try:
             ba_layers.load_state_dict(state_dict["it_blender"])

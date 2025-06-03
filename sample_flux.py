@@ -1,6 +1,9 @@
 import torch
 from diffusers import FluxPipeline
 import os
+import shutil
+from huggingface_hub import hf_hub_download
+
 from attention_processor import FluxBlendedAttnProcessor2_0
 from glob import glob
 from PIL import Image
@@ -71,7 +74,17 @@ pipe.transformer.set_attn_processor(blended_attn_procs)
 pipe.to(dtype)
 
 load_path = f"models/FLUX"
-pretrained_blended_attn_weights = torch.load(os.path.join(load_path, "it-blender.bin"), map_location=pipe._execution_device)
+
+try:
+    pretrained_blended_attn_weights = torch.load(os.path.join(load_path, "it-blender.bin"), map_location=pipe._execution_device)
+except:
+    model_file = hf_hub_download(
+        repo_id="Wonwoong/IT-Blender",
+        filename="FLUX/it-blender.bin" # adjust the filename as needed
+    )
+    os.makedirs(load_path, exist_ok=True)
+    shutil.copy(model_file, os.path.join(load_path, "it-blender.bin"))
+    pretrained_blended_attn_weights = torch.load(os.path.join(load_path, "it-blender.bin"), map_location=pipe._execution_device)
 
 key_changed_blended_attn_weights = {}
 for key, value in pretrained_blended_attn_weights.items():

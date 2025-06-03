@@ -13,6 +13,7 @@ import random
 from utils_sample import set_seed, image_grid, resize_and_center_crop, resize_and_add_margin
 import argparse
 
+
 parser = argparse.ArgumentParser(description="IT-Blender with FLUX")
 
 parser.add_argument("--scale", type=float, default=0.25, help="A scale for Blended Attention.")

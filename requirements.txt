@@ -3,6 +3,7 @@ protobuf
 sentencepiece
 accelerate
 einops
+huggingface_hub
 git+https://github.com/WonwoongCho/diffusers@main#egg=diffusers
 
 --extra-index-url https://download.pytorch.org/whl/cu124

@@ -44,6 +44,7 @@ conda activate itblender
 ```bash
 pip install -r requirements.txt
 ```
+
 ### Usage example
 1. **FLUX (`FLUX.1-dev`)**
 ```
@@ -77,12 +78,12 @@ python sample_sd15.py
   - ``--ref_preprocessing`` : Two image preprocessing algorithms are provided to deal with both square and rectangular reference images; Select either one of \"resize_centercrop\" or \"resize_addmargin\". (str, default=``resize_addmargin``)
 
 
-## Models
+## Pretrained Models
 
 | Model                                                                                            | Base model     | Description                                                                                                                                                 | Resolution   |
 | ------------------------------------------------------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [`IT-Blender FLUX`](https://huggingface.co/Yuanshi/OminiControl/tree/main/experimental) | FLUX.1-dev | The model used in the paper.                                                                                                                                | (512, 512)   |
-| [`IT-Blender StableDiffusion`](https://huggingface.co/Yuanshi/OminiControl/tree/main/omini)      | SD 1.5 | The model used in the paper.                                                                                                          | (512, 512)   |
+| [`IT-Blender FLUX`](https://huggingface.co/Yuanshi/OminiControl/tree/main/experimental) | FLUX.1-dev | The model used in the paper. 1.43 GB.                                                                                                                               | (512, 512)   |
+| [`IT-Blender StableDiffusion`](https://huggingface.co/Yuanshi/OminiControl/tree/main/omini)      | SD 1.5 | The model used in the paper. 99.1 MB.                                                                                                         | (512, 512)   |
 
 ## Feasible Design 
 
