@@ -82,9 +82,8 @@ python sample_sd15.py
 
 | Model                                                                                            | Base model     | Description                                                                                                                                                 | Resolution   |
 | ------------------------------------------------------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [`IT-Blender FLUX`](https://huggingface.co/Wonwoong/IT-Blender/tree/main/FLUX) | FLUX.1-dev | The model used in the paper. 1.43GB.                                                                                                                               | (512, 512)   |
-| [`IT-Blender StableDiffusion`](https://huggingface.co/Wonwoong/IT-Blender/tree/main/sd15)      | SD 1.5 | The model used in the paper. 
-99.1MB.                                                                                                         | (512, 512)   |
+| [`IT-Blender FLUX`](https://huggingface.co/Wonwoong/IT-Blender/tree/main/FLUX) | FLUX.1-dev | The model used in the paper (1.43GB).                                                                                                                               | (512, 512)   |
+| [`IT-Blender StableDiffusion`](https://huggingface.co/Wonwoong/IT-Blender/tree/main/sd15)      | SD 1.5 | The model used in the paper (99.1MB).                                                                                                         | (512, 512)   |
 
 ## Feasible Design 
 
