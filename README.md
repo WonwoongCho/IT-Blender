@@ -5,7 +5,7 @@
 <br>
 
 <a href="https://imagineforme.github.io/"><img alt="Build" src="https://img.shields.io/badge/Project%20Page-ITBlender-yellow"></a> 
-<a href="https://huggingface.co/Yuanshi/OminiControl"><img src="https://img.shields.io/badge/🤗_HuggingFace-Model-ffbd45.svg" alt="HuggingFace"></a>
+<a href="https://huggingface.co/Wonwoong/IT-Blender"><img src="https://img.shields.io/badge/🤗_HuggingFace-Model-ffbd45.svg" alt="HuggingFace"></a>
 <a href="https://huggingface.co/spaces/Yuanshi/OminiControl"><img src="https://img.shields.io/badge/🤗_HuggingFace-Demo-ffbd45.svg" alt="HuggingFace"></a>
 <br>
 <a href="https://arxiv.org/abs/2411.15098"><img src="https://img.shields.io/badge/ariXv-ITBlender-A42C25.svg" alt="arXiv"></a>
@@ -82,8 +82,8 @@ python sample_sd15.py
 
 | Model                                                                                            | Base model     | Description                                                                                                                                                 | Resolution   |
 | ------------------------------------------------------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [`IT-Blender FLUX`](https://huggingface.co/Yuanshi/OminiControl/tree/main/experimental) | FLUX.1-dev | The model used in the paper. 1.43 GB.                                                                                                                               | (512, 512)   |
-| [`IT-Blender StableDiffusion`](https://huggingface.co/Yuanshi/OminiControl/tree/main/omini)      | SD 1.5 | The model used in the paper. 99.1 MB.                                                                                                         | (512, 512)   |
+| [`IT-Blender FLUX`](https://huggingface.co/Wonwoong/IT-Blender/tree/main/FLUX) | FLUX.1-dev | The model used in the paper. 1.43 GB.                                                                                                                               | (512, 512)   |
+| [`IT-Blender StableDiffusion`](https://huggingface.co/Wonwoong/IT-Blender/tree/main/sd15)      | SD 1.5 | The model used in the paper. 99.1 MB.                                                                                                         | (512, 512)   |
 
 ## Feasible Design 
 
