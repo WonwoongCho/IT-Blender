@@ -10,15 +10,19 @@ from natsort import natsorted
 import numpy as np
 import random
 
-from utils_sample import set_seed, image_grid
+from utils_sample import set_seed, image_grid, resize_and_center_crop, resize_and_add_margin
 import argparse
 
 parser = argparse.ArgumentParser(description="IT-Blender with FLUX")
 
-parser.add_argument("--scale", type=float, default=0.7, help="scale for Blended Attention")
-parser.add_argument("--num_samples_per_ref", type=int, default=4, help="Number of samples to generate per a reference image")
-parser.add_argument("--seed", type=int, default=42, help="random seed")
-parser.add_argument("--obj", type=str, default="", help="an object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag")
+parser.add_argument("--scale", type=float, default=0.25, help="A scale for Blended Attention.")
+parser.add_argument("--num_samples_per_ref", type=int, default=4, help="The number of samples to generate per a reference image.")
+parser.add_argument("--seed", type=int, default=42, help="A random seed.")
+parser.add_argument("--obj", type=str, default="", help="An object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag.")
+parser.add_argument("--ref_preprocessing", type=str, default="resize_addmargin", help='''
+Two image preprocessing algorithms are provided to deal with both square and rectangular reference images; 
+Select either one of \"resize_centercrop\" or \"resize_addmargin\". 
+Default is resize_addmargin.''')
 
 # Parse arguments
 args = parser.parse_args()
@@ -40,7 +44,7 @@ else:
 
 prompt = f"best quality, high quality, a photo of a {obj}, 4k, detailed"
 
-start_end_layers = [10, 16]
+start_end_layers = [0, 16]
 set_seed(seed)
 
 root_path = f"models/sd15"
@@ -80,8 +84,13 @@ it_blender = ITBlender(pipe, ckpt_path, device, start_end_layers)
 
 for i, img_path in enumerate(img_path_list):
     # read image prompt
-    image = Image.open(img_path)
-    image = image.resize((512, 512))
+    image = Image.open(img_path).convert('RGB')
+    if args.ref_preprocessing == "resize_centercrop":
+        image = resize_and_center_crop(image, target_size=512)
+    elif args.ref_preprocessing == "resize_addmargin":
+        image = resize_and_add_margin(image, target_size=512)
+    else:
+        raise ValueError("Not implemented preprocessing method. Choose either one of resize_centercrop or resize_addmargin.")
 
     images = [image]
     images += it_blender.generate(pil_image=image, num_samples=num_samples_per_ref, num_inference_steps=50, seed=seed,

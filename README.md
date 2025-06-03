@@ -1,60 +1,40 @@
 # IT-Blender
 
 
-<img src='./assets/demo/demo_this_is_omini_control.jpg' width='100%' />
+<img src='./assets/main_figure_update.png' width='75%' />
 <br>
 
+<a href="https://imagineforme.github.io/"><img alt="Build" src="https://img.shields.io/badge/Project%20Page-ITBlender-yellow"></a> 
 <a href="https://huggingface.co/Yuanshi/OminiControl"><img src="https://img.shields.io/badge/🤗_HuggingFace-Model-ffbd45.svg" alt="HuggingFace"></a>
 <a href="https://huggingface.co/spaces/Yuanshi/OminiControl"><img src="https://img.shields.io/badge/🤗_HuggingFace-Demo-ffbd45.svg" alt="HuggingFace"></a>
-<a href="https://huggingface.co/spaces/Yuanshi/OminiControl_Art"><img src="https://img.shields.io/badge/🤗_HuggingFace-Demo2-ffbd45.svg" alt="HuggingFace"></a>
-<a href="https://github.com/Yuanshi9815/Subjects200K"><img src="https://img.shields.io/badge/GitHub-Dataset-blue.svg?logo=github&" alt="GitHub"></a>
-<a href="https://huggingface.co/datasets/Yuanshi/Subjects200K"><img src="https://img.shields.io/badge/🤗_HuggingFace-Dataset-ffbd45.svg" alt="HuggingFace"></a>
 <br>
-<a href="https://arxiv.org/abs/2411.15098"><img src="https://img.shields.io/badge/ariXv-OminiControl-A42C25.svg" alt="arXiv"></a>
-<a href="https://arxiv.org/abs/2503.08280"><img src="https://img.shields.io/badge/ariXv-OminiControl2-A42C25.svg" alt="arXiv"></a>
+<a href="https://arxiv.org/abs/2411.15098"><img src="https://img.shields.io/badge/ariXv-ITBlender-A42C25.svg" alt="arXiv"></a>
 
-> **OminiControl: Minimal and Universal Control for Diffusion Transformer**
+> **Imagine for Me: Creative Conceptual Blending of Real Images and Text via Blended Attention**
 > <br>
-> Zhenxiong Tan, 
-> [Songhua Liu](http://121.37.94.87/), 
-> [Xingyi Yang](https://adamdad.github.io/), 
-> Qiaochu Xue, 
-> and 
-> [Xinchao Wang](https://sites.google.com/site/sitexinchaowang/)
+> [Wonwoong Cho*](https://wonwoongcho.github.io), 
+> [Yanxia Zhang**](https://www.yanxiazhang.com/), 
+> [Yan-Ying Chen**](https://www.tri.global/about-us/dr-yan-ying-chen)
+> [David Inouye*](https://www.davidinouye.com/)
 > <br>
-> [xML Lab](https://sites.google.com/view/xml-nus), National University of Singapore
+> \* Elmore Family School of Electrical and Computer Engineering, Purdue University
 > <br>
-
-> **OminiControl2: Efficient Conditioning for Diffusion Transformers**
-> <br>
-> Zhenxiong Tan, 
-> Qiaochu Xue, 
-> [Xingyi Yang](https://adamdad.github.io/), 
-> [Songhua Liu](http://121.37.94.87/), 
-> and 
-> [Xinchao Wang](https://sites.google.com/site/sitexinchaowang/)
-> <br>
-> [xML Lab](https://sites.google.com/view/xml-nus), National University of Singapore
-> <br>
-
+> \*\* Toyota Research Institute
 
 
 ## Features
 
-OminiControl is a minimal yet powerful universal control framework for Diffusion Transformer models like [FLUX](https://github.com/black-forest-labs/flux).
+IT-Blender is a T2I diffusion adapter that can automate the blending process of visual and textual concepts to enhance human creativity.
 
-* **Universal Control 🌐**:  A unified control framework that supports both subject-driven control and spatial control (such as edge-guided and in-painting generation).
+* **Preserving detailed visual concepts from a reference image**:  We leverage the denoising network (both UNet-based and DiT-based) as an image encoder to maintain the details of visual concepts.
+* **Disentangling textual and visual concepts**:  We design a novel Blended Attention on top of the image self-attention module, where textual concepts are physically separated, encouraging disentanglement of textual and visual concepts.
 
-* **Minimal Design 🚀**: Injects control signals while preserving original model structure. Only introduces 0.1% additional parameters to the base model.
 
 ## News
-- **2025-05-12**: ⭐️ The code of [OminiControl2](https://arxiv.org/abs/2503.08280) is released. It introduces a new efficient conditioning method for diffusion transformers. (Check out the training code [here](./train)).
-- **2025-05-12**: Support custom style LoRA. (Check out the [example](./examples/combine_with_style_lora.ipynb)).
-- **2025-04-09**: ⭐️ [OminiControl Art](https://huggingface.co/spaces/Yuanshi/OminiControl_Art) is released. It can stylize any image with a artistic style. (Check out the [demo](https://huggingface.co/spaces/Yuanshi/OminiControl_Art) and [inference examples](./examples/ominicontrol_art.ipynb)).
-- **2024-12-26**: Training code are released. Now you can create your own OminiControl model by customizing any control tasks (3D, multi-view, pose-guided, try-on, etc.) with the FLUX model. Check the [training folder](./train) for more details.
+- **2025-06-12**: ⭐️ Sampling codes of [IT-Blender](https://arxiv.org/abs/2503.08280) on both SD 1.5 and FLUX have been released.
 
 ## Quick Start
-### Setup (Optional)
+### Setup
 1. **Environment setup**
 ```bash
 conda create -n itblender python=3.12
@@ -65,117 +45,56 @@ conda activate itblender
 pip install -r requirements.txt
 ```
 ### Usage example
-1. Subject-driven generation: `examples/subject.ipynb`
-2. In-painting: `examples/inpainting.ipynb`
-3. Canny edge to image, depth to image, colorization, deblurring: `examples/spatial.ipynb`
+1. **FLUX (`FLUX.1-dev`)**
+```
+python sample_flux.py
+```
+- Peak VRAM usage is 26726MiB with a single gpu.
+- Options
+  - ``--scale``: A scale for Blended Attention. The default value is 0.6. A value between 0.5 and 0.8 is recommended. (float, default=0.6)
+  - ``--num_ref``: The number of reference images. (int, default=1)
+  - ``--num_samples_per_ref`` : The number of samples to generate per a reference image. (int, default=3)
+  - ``--seed`` : A random seed. (int, default=42)
+  - ``--obj`` : An object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag. (str, default="", which is replaced with ``["monster cartoon character", "owl cartoon character"]``)
+  - ``--temperature`` : A temperature before softmax. Only used if num_ref > 1.
+        Set greater than 1.0 (low temp) if the result does not clearly apply multiple reference images.
+        This sharpens the softmax distribution, possibly helping to prevent ambiguous mixtures of visual concepts.
+        Setting greater than 1.0 can negatively affect the generation quality. A value less than 1.5 is recommended. 
+        See appendices of our paper for further details. (float, default=1.0)
+  - ``--ref_preprocessing`` : Two image preprocessing algorithms are provided to deal with both square and rectangular reference images; Select either one of \"resize_centercrop\" or \"resize_addmargin\". (str, default=``resize_addmargin``)
 
 
-### Guidelines for subject-driven generation
-1. Input images are automatically center-cropped and resized to 512x512 resolution.
-2. When writing prompts, refer to the subject using phrases like `this item`, `the object`, or `it`. e.g.
-   1. *A close up view of this item. It is placed on a wooden table.*
-   2. *A young lady is wearing this shirt.*
-3. The model primarily works with objects rather than human subjects currently, due to the absence of human data in training.
-
-## Generated samples
-### Subject-driven generation
-<a href="https://huggingface.co/spaces/Yuanshi/OminiControl"><img src="https://img.shields.io/badge/🤗_HuggingFace-Space-ffbd45.svg" alt="HuggingFace"></a>
-
-**Demos** (Left: condition image; Right: generated image)
-
-<div float="left">
-  <img src='./assets/demo/oranges_omini.jpg' width='48%'/>
-  <img src='./assets/demo/rc_car_omini.jpg' width='48%' />
-  <img src='./assets/demo/clock_omini.jpg' width='48%' />
-  <img src='./assets/demo/shirt_omini.jpg' width='48%' />
-</div>
-
-<details>
-<summary>Text Prompts</summary>
-
-- Prompt1: *A close up view of this item. It is placed on a wooden table. The background is a dark room, the TV is on, and the screen is showing a cooking show. With text on the screen that reads 'Omini Control!.'*
-- Prompt2: *A film style shot. On the moon, this item drives across the moon surface. A flag on it reads 'Omini'. The background is that Earth looms large in the foreground.*
-- Prompt3: *In a Bauhaus style room, this item is placed on a shiny glass table, with a vase of flowers next to it. In the afternoon sun, the shadows of the blinds are cast on the wall.*
-- Prompt4: *"On the beach, a lady sits under a beach umbrella with 'Omini' written on it. She's wearing this shirt and has a big smile on her face, with her surfboard hehind her. The sun is setting in the background. The sky is a beautiful shade of orange and purple."*
-</details>
-<details>
-<summary>More results</summary>
-
-* Try on:
-  <img src='./assets/demo/try_on.jpg'/>
-* Scene variations:
-  <img src='./assets/demo/scene_variation.jpg'/>
-* Dreambooth dataset:
-  <img src='./assets/demo/dreambooth_res.jpg'/>
-* Oye-cartoon finetune:
-  <div float="left">
-    <img src='./assets/demo/man_omini.jpg' width='48%' />
-    <img src='./assets/demo/panda_omini.jpg' width='48%' />
-  </div>
-</details>
-
-### Spatially aligned control
-1. **Image Inpainting** (Left: original image; Center: masked image; Right: filled image)
-  - Prompt: *The Mona Lisa is wearing a white VR headset with 'Omini' written on it.*
-    </br>
-    <img src='./assets/demo/monalisa_omini.jpg' width='700px' />
-  - Prompt: *A yellow book with the word 'OMINI' in large font on the cover. The text 'for FLUX' appears at the bottom.*
-    </br>
-    <img src='./assets/demo/book_omini.jpg' width='700px' />
-2. **Other spatially aligned tasks**  (Canny edge to image, depth to image, colorization, deblurring) 
-    </br>
-    <details>
-    <summary>Click to show</summary>
-    <div float="left">
-      <img src='./assets/demo/room_corner_canny.jpg' width='48%'/>
-      <img src='./assets/demo/room_corner_depth.jpg' width='48%' />
-      <img src='./assets/demo/room_corner_coloring.jpg' width='48%' />
-      <img src='./assets/demo/room_corner_deblurring.jpg' width='48%' />
-    </div>
-    
-    Prompt: *A light gray sofa stands against a white wall, featuring a black and white geometric patterned pillow. A white side table sits next to the sofa, topped with a white adjustable desk lamp and some books. Dark hardwood flooring contrasts with the pale walls and furniture.*
-    </details>
-   
-### Stylize images
-<a href="https://huggingface.co/spaces/Yuanshi/OminiControl_Art"><img src="https://img.shields.io/badge/🤗_HuggingFace-Demo2-ffbd45.svg" alt="HuggingFace"></a>
-</br>
-<img src='./assets/demo/art1.png' width='600px' />
-<img src='./assets/demo/art2.png' width='600px' />
-</br>
-
+2. **StableDiffusion (`SD 1.5`)**
+```
+python sample_sd15.py
+```
+- Peak VRAM usage is 6364 MiB with a single gpu.
+- Options
+  - ``--scale``: A scale for Blended Attention. The default value is 0.25. A value between 0.2 and 0.3 is recommended. (float, default=0.25)
+  - ``--num_samples_per_ref`` : The number of samples to generate per a reference image. (int, default=4)
+  - ``--seed`` : A random seed. (int, default=42)
+  - ``--obj`` : An object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag. (str, default="", which is replaced with ``"motorcycle"``)
+  - ``--ref_preprocessing`` : Two image preprocessing algorithms are provided to deal with both square and rectangular reference images; Select either one of \"resize_centercrop\" or \"resize_addmargin\". (str, default=``resize_addmargin``)
 
 
 ## Models
 
-**Subject-driven control:**
 | Model                                                                                            | Base model     | Description                                                                                                                                                 | Resolution   |
 | ------------------------------------------------------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| [`experimental`](https://huggingface.co/Yuanshi/OminiControl/tree/main/experimental) / `subject` | FLUX.1-schnell | The model used in the paper.                                                                                                                                | (512, 512)   |
-| [`omini`](https://huggingface.co/Yuanshi/OminiControl/tree/main/omini) / `subject_512`           | FLUX.1-schnell | The model has been fine-tuned on a larger dataset.                                                                                                          | (512, 512)   |
-| [`omini`](https://huggingface.co/Yuanshi/OminiControl/tree/main/omini) / `subject_1024`          | FLUX.1-schnell | The model has been fine-tuned on a larger dataset and accommodates higher resolution.                                                                       | (1024, 1024) |
-| [`oye-cartoon`](https://huggingface.co/saquiboye/oye-cartoon)                                    | FLUX.1-dev     | The model has been fine-tuned on [oye-cartoon](https://huggingface.co/datasets/saquiboye/oye-cartoon) dataset by [@saquib764](https://github.com/Saquib764) | (512, 512)   |
+| [`IT-Blender FLUX`](https://huggingface.co/Yuanshi/OminiControl/tree/main/experimental) | FLUX.1-dev | The model used in the paper.                                                                                                                                | (512, 512)   |
+| [`IT-Blender StableDiffusion`](https://huggingface.co/Yuanshi/OminiControl/tree/main/omini)      | SD 1.5 | The model used in the paper.                                                                                                          | (512, 512)   |
 
-**Spatial aligned control:**
-| Model                                                                                                     | Base model | Description                                                                | Resolution   |
-| --------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------- | ------------ |
-| [`experimental`](https://huggingface.co/Yuanshi/OminiControl/tree/main/experimental) / `<task_name>`      | FLUX.1     | Canny edge to image, depth to image, colorization, deblurring, in-painting | (512, 512)   |=
+## Feasible Design 
 
-## Community Extensions
-- [ComfyUI-Diffusers-OminiControl](https://github.com/Macoron/ComfyUI-Diffusers-OminiControl) - ComfyUI integration by [@Macoron](https://github.com/Macoron)
-- [ComfyUI_RH_OminiControl](https://github.com/HM-RunningHub/ComfyUI_RH_OminiControl) - ComfyUI integration by [@HM-RunningHub](https://github.com/HM-RunningHub)
+The blended results are more practical and feasible when the given cross-modal concepts are semantically close. More examples are provided in our project page.
 
-## Limitations
-1. The model's subject-driven generation primarily works with objects rather than human subjects due to the absence of human data in training.
-2. The subject-driven generation model may not work well with `FLUX.1-dev`.
-3. The released model only supports the resolution of 512x512.
+<img src='./assets/feasible_first_image.png' width='75%' />
 
-## Training
-Training instructions can be found in this [folder](./train).
+## Societal Impact
 
-
-## To-do
-- [x] Release the training code.
-- [x] Release the model for higher resolution (1024x1024).
+- **Positive societal impact**: IT-Blender can augment human creativity, especially for people in creative industries, e.g., design and marketing. With IT-Blender, designers might be able to have better final
+design outcome by exploring wide design space in the ideation stage.
+- **Negative societal impact**: IT-Blender can be used to apply the design of an existing product to the new products. The user must be aware of the fact that they can infringe on the company’s intellectual property if a specific texture pattern or material combination is registered. *We encourage users to use IT-Blender to augment creativity in the ideation stage, rather than directly having a final design outcome.*
 
 ## Citation
 ```
@@ -185,11 +104,3 @@ Training instructions can be found in this [folder](./train).
   journal={arXiv preprint arXiv:2411.15098},
   year={2024}
 }
-
-@article{tan2025ominicontrol2,
-  title={OminiControl2: Efficient Conditioning for Diffusion Transformers},
-  author={Tan, Zhenxiong and Xue, Qiaochu and Yang, Xingyi and Liu, Songhua and Wang, Xinchao},
-  journal={arXiv preprint arXiv:2503.08280},
-  year={2025}
-}
-```

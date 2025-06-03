@@ -38,3 +38,35 @@ def image_grid(imgs, rows, cols):
     for i, img in enumerate(imgs):
         grid.paste(img, box=(i%cols*w, i//cols*h))
     return grid
+
+
+def resize_and_center_crop(image, target_size=512):
+    w, h = image.size
+    scale = target_size / min(w, h)
+    new_w = int(w * scale)
+    new_h = int(h * scale)
+    image_resized = image.resize((new_w, new_h), Image.Resampling.LANCZOS)
+
+    left = (new_w - target_size) // 2
+    top = (new_h - target_size) // 2
+    right = left + target_size
+    bottom = top + target_size
+    image_cropped = image_resized.crop((left, top, right, bottom))
+
+    return image_cropped
+
+
+def resize_and_add_margin(image, target_size=512, background_color=(255, 255, 255)):
+    w, h = image.size
+    scale = target_size / max(w, h)
+    new_w = int(w * scale)
+    new_h = int(h * scale)
+    image_resized = image.resize((new_w, new_h), Image.Resampling.LANCZOS)
+
+    new_image = Image.new("RGB", (target_size, target_size), background_color)
+
+    left = (target_size - new_w) // 2
+    top = (target_size - new_h) // 2
+    new_image.paste(image_resized, (left, top))
+
+    return new_image

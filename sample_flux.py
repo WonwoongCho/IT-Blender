@@ -11,21 +11,27 @@ import torchvision.transforms.functional as F
 import numpy as np
 import random
 
-from utils_sample import set_seed, image_grid
+from utils_sample import set_seed, image_grid, resize_and_center_crop, resize_and_add_margin
+
 import argparse
 
 parser = argparse.ArgumentParser(description="IT-Blender with FLUX")
 
-parser.add_argument("--scale", type=float, default=0.6, help="scale for Blended Attention")
-parser.add_argument("--num_ref", type=int, default=1, help="Number of reference images")
-parser.add_argument("--num_samples_per_ref", type=int, default=3, help="Number of samples to generate per a reference image")
-parser.add_argument("--seed", type=int, default=42, help="random seed")
-parser.add_argument("--obj", type=str, default="", help="an object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag")
-parser.add_argument("--temperature", type=float, default=1.0, help='''Temperature before softmax. Only used if num_ref > 1.
+parser.add_argument("--scale", type=float, default=0.6, help="A scale for Blended Attention. The default value is 0.6. A value between 0.5 and 0.8 is recommended.")
+parser.add_argument("--num_ref", type=int, default=1, help="The number of reference images.")
+parser.add_argument("--num_samples_per_ref", type=int, default=3, help="The number of samples to generate per a reference image.")
+parser.add_argument("--seed", type=int, default=42, help="A random seed.")
+parser.add_argument("--obj", type=str, default="", help="An object to generate, e.g., monster cartoon character, dragon, sneakers, and handbag.")
+parser.add_argument("--temperature", type=float, default=1.0, help='''
+        A temperature before softmax. Only used if num_ref > 1.
         Set greater than 1.0 (low temp) if the result does not clearly apply multiple reference images.
         This sharpens the softmax distribution, possibly helping to prevent ambiguous mixtures of visual concepts.
-        Setting greater than 1.5 can negatively affect the generation quality. 
+        Setting greater than 1.0 can negatively affect the generation quality. 
         See appendices of our paper for further details.''')
+parser.add_argument("--ref_preprocessing", type=str, default="resize_addmargin", help='''
+Two image preprocessing algorithms are provided to deal with both square and rectangular reference images; 
+Select either one of \"resize_centercrop\" or \"resize_addmargin\". 
+Default is resize_addmargin.''')
 
 # Parse arguments
 args = parser.parse_args()
@@ -55,7 +61,7 @@ pipe.enable_model_cpu_offload()
 
 blended_attn_procs = {}
 for name, _ in pipe.transformer.attn_processors.items():
-    if "single" in name: # for single stream
+    if "single" in name:
         blended_attn_procs[name] = FluxBlendedAttnProcessor2_0(3072, ba_scale=scale, num_ref=num_ref, temperature=temperature)
     else:
         blended_attn_procs[name] = pipe.transformer.attn_processors[name]
@@ -69,9 +75,9 @@ pretrained_blended_attn_weights = torch.load(os.path.join(load_path, "it-blender
 
 key_changed_blended_attn_weights = {}
 for key, value in pretrained_blended_attn_weights.items():
-    block_idx = int(key.split(".")[0]) - 21 # for single stream
+    block_idx = int(key.split(".")[0]) - 21
     k_or_v = key.split("_")[2]
-    changed_key = f'single_transformer_blocks.{block_idx}.attn.processor.blended_attention_{k_or_v}_proj.weight' # for single stream
+    changed_key = f'single_transformer_blocks.{block_idx}.attn.processor.blended_attention_{k_or_v}_proj.weight'
     key_changed_blended_attn_weights[changed_key] = value.to(dtype)
     
 missing_keys, unexpected_keys = pipe.transformer.load_state_dict(key_changed_blended_attn_weights, strict=False)
@@ -92,7 +98,12 @@ for obj in objs:
     
     for i, img_path in enumerate(img_path_list):
         image = Image.open(img_path).convert('RGB')
-        image = image.resize((512, 512))
+        if args.ref_preprocessing == "resize_centercrop":
+            image = resize_and_center_crop(image, target_size=512)
+        elif args.ref_preprocessing == "resize_addmargin":
+            image = resize_and_add_margin(image, target_size=512)
+        else:
+            raise ValueError("Not implemented preprocessing method. Choose either one of resize_centercrop or resize_addmargin.")
         image_list.append(image)
 
         if len(image_list) == num_ref:

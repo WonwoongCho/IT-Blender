@@ -10,6 +10,7 @@ from PIL import Image
 from typing import List
 import torch
 import os
+from torchvision import transforms
 
 def get_generator(seed, device):
 
@@ -33,18 +34,13 @@ class ITBlender:
         
         self.pipe = sd_pipe.to(self.device)
         self.set_it_blender()
-
-        # load image encoder
         
-        
-        from torchvision import transforms
         self.transform = transforms.Compose([
             transforms.Resize(512, interpolation=transforms.InterpolationMode.BILINEAR),
             transforms.CenterCrop(512),
             transforms.ToTensor(),
-            transforms.Normalize([0.5], [0.5]),#transforms.Normalize(mean=image_processor.image_mean, std=image_processor.image_std),
+            transforms.Normalize([0.5], [0.5])
         ])
-        # image proj model
 
         self.load_it_blender()
 
@@ -71,7 +67,7 @@ class ITBlender:
                 attn_procs[name] = AttnProcessor(is_training=False)
             else:
                 sa_layer_idx = SD_15_sa_name_list.index(name)
-                if sa_layer_idx >= self.start_end_layers[0] and  sa_layer_idx < self.start_end_layers[1]:
+                if sa_layer_idx >= self.start_end_layers[0] and sa_layer_idx < self.start_end_layers[1]:
                     attn_procs[name] = BlendedAttnProcessor(
                         hidden_size=hidden_size).to(self.device, dtype=torch.float16
                     )
