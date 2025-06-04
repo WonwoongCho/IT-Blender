@@ -12,14 +12,14 @@
 
 > **Imagine for Me: Creative Conceptual Blending of Real Images and Text via Blended Attention**
 > <br>
-> [Wonwoong Cho*](https://wonwoongcho.github.io), 
-> [Yanxia Zhang**](https://www.yanxiazhang.com/), 
-> [Yan-Ying Chen**](https://www.tri.global/about-us/dr-yan-ying-chen)
-> [David Inouye*](https://www.davidinouye.com/)
+> [Wonwoong Cho<sup>1</sup>](https://wonwoongcho.github.io), 
+> [Yanxia Zhang<sup>2</sup>](https://www.yanxiazhang.com/), 
+> [Yan-Ying Chen<sup>2</sup>](https://www.tri.global/about-us/dr-yan-ying-chen)
+> [David Inouye<sup>1</sup>](https://www.davidinouye.com/)
 > <br>
-> \* Elmore Family School of Electrical and Computer Engineering, Purdue University
+> <sup>1</sup> Elmore Family School of Electrical and Computer Engineering, Purdue University
 > <br>
-> \*\* Toyota Research Institute
+> <sup>2</sup> Toyota Research Institute
 
 
 ## Features
