@@ -5,10 +5,10 @@
 <br>
 
 <a href="https://imagineforme.github.io/"><img alt="Build" src="https://img.shields.io/badge/Project%20Page-ITBlender-yellow"></a> 
-<a href="https://huggingface.co/Wonwoong/IT-Blender"><img src="https://img.shields.io/badge/🤗_HuggingFace-Model-ffbd45.svg" alt="HuggingFace"></a>
-<a href="https://huggingface.co/spaces/Yuanshi/OminiControl"><img src="https://img.shields.io/badge/🤗_HuggingFace-Demo-ffbd45.svg" alt="HuggingFace"></a>
+<a href="https://huggingface.co/Wonwoong/IT-Blender"><img src="https://img.shields.io/badge/🤗_ITBlender-Model-ffbd45.svg" alt="HuggingFace"></a>
+<a href="https://huggingface.co/spaces/Yuanshi/OminiControl"><img src="https://img.shields.io/badge/🤗_ITBlender-Demo-ffbd45.svg" alt="HuggingFace"></a>
 <br>
-<a href="https://arxiv.org/abs/2411.15098"><img src="https://img.shields.io/badge/ariXv-ITBlender-A42C25.svg" alt="arXiv"></a>
+<a href="https://arxiv.org/abs/2411.15098"><img src="https://img.shields.io/badge/ArXiv-Paper-A42C25.svg" alt="arXiv"></a>
 
 > **Imagine for Me: Creative Conceptual Blending of Real Images and Text via Blended Attention**
 > <br>
