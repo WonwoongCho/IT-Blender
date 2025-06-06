@@ -31,7 +31,7 @@ which compares similarities and selectively applies relevant features to blend m
 This can assist exploration of the design space in creative domains such as product design, character design, fashion, or advertising, 
 where generating diverse, inspiring, and unconventional concepts is crucial.
 * **Model-agnostic native image encoding to preserve detailed visual concepts from a reference image**:  We leverage the denoising network (both UNet-based and DiT-based) as an image encoder to maintain the details of visual concepts.
-* **Superior performance in applying visual concepts in a disentangled way from the textual concept**: We design a novel *Blended Attention* that enables disentangled blending of textual semantics and detailed visual features such as texture, material, color, and local shape.
+* **Superior performance in applying visual concepts in a disentangled way from the textual concept**: We design a novel *Blended Attention* that enables disentangled blending of textual semantics and detailed visual features, such as texture, material, color, and local shape.
 
 
 ## News
