@@ -22,12 +22,13 @@
 > <sup>2</sup> Toyota Research Institute
 
 
-## Features
+## Key Contributions
 
 IT-Blender is a T2I diffusion adapter that can automate the blending process of visual and textual concepts to enhance human creativity.
 
-* **Preserving detailed visual concepts from a reference image**:  We leverage the denoising network (both UNet-based and DiT-based) as an image encoder to maintain the details of visual concepts.
-* **Disentangling textual and visual concepts**:  We design a novel Blended Attention on top of the image self-attention module, where textual concepts are physically separated, encouraging disentanglement of textual and visual concepts.
+* **Cognitively inspired creativity-supporting AI**: IT-Blender is inspired by the selective projection process in human cognition, which compares similarities and selectively applies relevant features to blend multiple concepts. This enables AI-assisted ideation and exploration in creative domains such as diverse design fields, where generating diverse, inspiring, and unconventional concepts is crucial. 
+* **Model-agnostic native image encoding to preserve detailed visual concepts from a reference image**:  We leverage the denoising network (both UNet-based and DiT-based) as an image encoder to maintain the details of visual concepts.
+* **Superior performance in applying visual concepts in a disentangled way from the textual concept**: We design a novel *Blended Attention* that enables disentangled blending of textual semantics and detailed visual features such as texture, material, color, and local shape.
 
 
 ## News
