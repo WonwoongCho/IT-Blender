@@ -8,7 +8,7 @@
 <a href="https://huggingface.co/WonwoongCho/IT-Blender"><img src="https://img.shields.io/badge/🤗_ITBlender-Model-ffbd45.svg" alt="HuggingFace"></a>
 <a href="https://huggingface.co/spaces/WonwoongCho/IT-Blender"><img src="https://img.shields.io/badge/🤗_ITBlender-Demo-ffbd45.svg" alt="HuggingFace"></a>
 <br>
-<a href="https://arxiv.org/abs/2411.15098"><img src="https://img.shields.io/badge/ArXiv-Paper-A42C25.svg" alt="arXiv"></a>
+<a href="https://arxiv.org/pdf/2506.24085"><img src="https://img.shields.io/badge/ArXiv-Paper-A42C25.svg" alt="arXiv"></a>
 
 > **Imagine for Me: Creative Conceptual Blending of Real Images and Text via Blended Attention**
 > <br>
