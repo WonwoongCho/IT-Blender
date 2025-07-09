@@ -114,6 +114,11 @@ The blended results are more practical and feasible when the given cross-modal c
 design outcome by exploring wide design space in the ideation stage.
 - **Negative societal impact**: IT-Blender can be used to apply the design of an existing product to the new products. The user must be aware of the fact that they can infringe on the company’s intellectual property if a specific texture pattern or material combination is registered. *We encourage users to use IT-Blender to augment creativity in the ideation stage, rather than directly having a final design outcome.*
 
+## License
+
+This project is licensed under the Purdue University.  
+See the [LICENSE](./LICENSE) file for full license terms.
+
 ## Citation
 ```
 @article{tan2024ominicontrol,
