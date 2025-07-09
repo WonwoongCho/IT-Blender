@@ -35,7 +35,7 @@ where generating diverse, inspiring, and unconventional concepts is crucial.
 
 
 ## News
-- **2025-06-12**: ⭐️ Sampling codes of [IT-Blender](https://arxiv.org/abs/2503.08280) on both SD 1.5 and FLUX have been released.
+- **2025-07-09**: ⭐️ Sampling codes of [IT-Blender](https://arxiv.org/abs/2503.08280) on both SD 1.5 and FLUX have been released.
 
 ## Quick Start
 ### Setup
@@ -47,6 +47,19 @@ conda activate itblender
 2. **Requirements installation**
 ```bash
 pip install -r requirements.txt
+```
+3. **Accessing the pretrained Models & CLI Login**
+  
+- Make sure you are logged into your Hugging Face account.
+- Accept the specific license terms.
+  - *For SD 1.5*, go to the runwayml/stable-diffusion-v1-5 model page.
+
+  - *For FLUX*, navigate to the black-forest-labs/FLUX.1-dev model page.
+
+- Read and accept the license agreement.
+
+```bash
+huggingface-cli login
 ```
 
 ### Usage example
