@@ -26,12 +26,9 @@
 
 IT-Blender is a T2I diffusion adapter that can automate the blending process of visual and textual concepts to enhance human creativity.
 
-* **Cognitively inspired creativity-supporting AI**: IT-Blender is inspired by the *selective projection* process in human cognition, 
-which compares similarities and selectively applies relevant features to blend multiple concepts. 
-The automated cross-modal conceptual blending can assist exploration of the design space in creative domains such as product, character, fashion design, or advertising, 
-where generating diverse, inspiring, and unconventional concepts is crucial.
-* **Model-agnostic native image encoding to preserve detailed visual concepts from a reference image**:  We leverage the denoising network (both UNet-based and DiT-based) as an image encoder to maintain the details of visual concepts.
-* **Superior performance in applying visual concepts in a disentangled way from the textual concept**: We design a novel *Blended Attention* that enables disentangled blending of textual semantics and detailed visual features, such as texture, material, color, and local shape.
+* **Cognitively motivated conceptual blending module that can be generally applicable to diverse creative applications without any task-specific setup**: The core idea of IT-Blender is to simulate the conceptual blending process in Cognitive Science via a blended attention module, which can be essentially applicable to any downstream tasks related to conceptual blending.
+* **Model-agnostic native image encoding to preserve detailed visual concepts from a reference image**:  Instead of relying on an external image encoder or inversion method, we leverage the denoising network (both UNet-based and DiT-based) as an image encoder to maintain the details of visual concepts.
+* **Blended attention learned to bridge the gap between the clean reference stream and the noisy generating stream**: Blended attention learns to connect the local visual components of the clean reference stream to those of the noisy denoising stream by only minimizing the original denoising objective in a self-supervised manner. As opposed to other baselines, blended attention is designed on top of the pretrained self-attention modules to disentangle better the textual and visual concepts.
 
 
 ## News
