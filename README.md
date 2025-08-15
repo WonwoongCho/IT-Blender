@@ -26,9 +26,11 @@
 
 IT-Blender is a T2I diffusion adapter that can automate the blending process of visual and textual concepts to enhance human creativity.
 
-* **Cognitively motivated conceptual blending module that can be generally applicable to diverse creative applications without any task-specific setup**: The core idea of IT-Blender is to simulate the conceptual blending process in Cognitive Science via a blended attention module, which can be essentially applicable to any downstream tasks related to conceptual blending, such as Style Transfer, Novel object synthesis, and diverse design tasks.
-* **Model-agnostic native image encoding to preserve detailed visual concepts from a reference image**:  Instead of relying on an external image encoder or inversion method, we leverage the denoising network (both UNet-based and DiT-based) as an image encoder to maintain the details of visual concepts.
-* **Blended attention learned to bridge the gap between the clean reference stream and the noisy generating stream**: Blended attention learns to connect the local visual components of the clean reference stream to those of the noisy denoising stream by only minimizing the original denoising objective in a self-supervised manner. As opposed to other baselines, blended attention is designed on top of the pretrained self-attention modules to disentangle better the textual and visual concepts.
+* What representations are blended? The latent representations of a *real image* based on a *pretrained diffusion model*.
+  
+* How are these representations blended? *Blended attention*, which learns to bridge the gap between the clean reference stream and the noisy generating stream.
+  
+ * Conceptual blending module that can be generally applicable to diverse creative applications with a single IT-Blender (e.g., Product, Character, Graphic, Fashion, Interior, and Architectural design, Art).
 
 
 ## News
